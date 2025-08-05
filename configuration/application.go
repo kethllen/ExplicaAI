@@ -1,15 +1,16 @@
 package configuration
 
 import (
-    "fmt"
+	"fmt"
 
-    "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4"
 )
-type Application struct{
+
+type Application struct {
 	server *echo.Echo
 }
 
-func NewApplication() *Application{
+func NewApplication() *Application {
 	server := echo.New()
 	server.HideBanner = true
 	server.HidePort = true
@@ -19,7 +20,8 @@ func NewApplication() *Application{
 	}
 }
 
-func (a *Application) Start(){
+func (a *Application) Start() {
+
 	fmt.Println("explicAI is starting on 0.0.0.0:8080")
 	a.server.Start("0.0.0.0:8080")
 }

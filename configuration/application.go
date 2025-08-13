@@ -1,8 +1,10 @@
 package configuration
 
 import (
-	"fmt"
+	"context"
 
+	"github.com/kethllen/explicaAi/internal/infrastructure/api"
+	"github.com/kethllen/explicaAi/internal/infrastructure/log"
 	"github.com/labstack/echo/v4"
 )
 
@@ -21,7 +23,13 @@ func NewApplication() *Application {
 }
 
 func (a *Application) Start() {
+	a.registerControllers()
+	ctx := context.Background()
 
-	fmt.Println("explicAI is starting on 0.0.0.0:8080")
-	a.server.Start("0.0.0.0:8080")
+	log.LogInfo(ctx, "explicAI is starting on 0.0.0.0:8080")
+	log.LogError(ctx, "server fatal error", a.server.Start("0.0.0.0:8080"))
+
+}
+func (a *Application) registerControllers() {
+	api.NewExplicaServer().Register(a.server)
 }
